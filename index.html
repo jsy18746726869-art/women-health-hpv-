@@ -792,8 +792,30 @@ footer{text-align:center;padding:2rem 1.5rem;font-size:.82rem;color:#B3C5D7;bord
       spinner.className = 'chart-spinner';
       iframe.parentNode.appendChild(spinner);
 
-      iframe.onload = function() { spinner.style.display = 'none'; };
+      var loaded = false;
+      var timeout = setTimeout(function() {
+        if (!loaded) {
+          spinner.style.display = 'none';
+          var container = iframe.closest('.chart-wide') || iframe.closest('.chart-frame');
+          if (container) {
+            container.classList.add('iframe-error');
+            var hint = container.querySelector('.chart-hint');
+            if (hint && !hint.textContent.includes('失败')) {
+              hint.textContent = '图表加载超时，请检查网络或刷新重试';
+              hint.style.color = '#e74c3c';
+            }
+          }
+        }
+      }, 15000);
+
+      iframe.onload = function() {
+        loaded = true;
+        clearTimeout(timeout);
+        spinner.style.display = 'none';
+      };
       iframe.onerror = function() {
+        loaded = true;
+        clearTimeout(timeout);
         spinner.style.display = 'none';
         var container = iframe.closest('.chart-wide') || iframe.closest('.chart-frame');
         if (container) {
@@ -810,6 +832,8 @@ footer{text-align:center;padding:2rem 1.5rem;font-size:.82rem;color:#B3C5D7;bord
         try {
           if (iframe.contentWindow && iframe.contentWindow.document &&
               iframe.contentWindow.document.body && iframe.contentWindow.document.body.innerHTML !== '') {
+            loaded = true;
+            clearTimeout(timeout);
             spinner.style.display = 'none';
           }
         } catch(e) { /* cross-origin, ignore */ }
@@ -818,7 +842,7 @@ footer{text-align:center;padding:2rem 1.5rem;font-size:.82rem;color:#B3C5D7;bord
       iframeObserver.unobserve(iframe);
     });
   }, {
-    rootMargin: '300px 0px',
+    rootMargin: '500px 0px',
     threshold: 0.01
   });
 

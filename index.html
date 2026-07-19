@@ -129,12 +129,14 @@ footer{text-align:center;padding:2rem 1.5rem;font-size:.82rem;color:#B3C5D7;bord
   #sec11 .flex-chart .chart-wide,
   #sec12 .flex-chart .chart-wide {
       margin: 0 !important;
+      }
+      transform-origin: top left !important;
   }
 }
 @media(max-width:480px){
   .hero h1{font-size:1.4rem}
   .section-header h2{font-size:1.1rem}
-  .map-container iframe{height:480px}
+  .map-container iframe{height:300px}
 }
 
 /* ====== 响应式图表切换 ====== */
@@ -421,7 +423,26 @@ footer{text-align:center;padding:2rem 1.5rem;font-size:.82rem;color:#B3C5D7;bord
             <p>你会看到一个个代表着“可及性”的坐标。</p>
             <p><strong>从物理空间来看，接种中心似乎并不稀缺。</strong></p>
         <div class="map-container">
-            <iframe src="map.html" style="width:100%;height:600px;border:none;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,0.1);"></iframe>
+            <div class="only-desktop">
+                <iframe src="https://mas-alpha-coral.vercel.app/" style="width:100%;height:600px;border:none;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,0.1);"></iframe>
+            </div>
+            <div class="only-mobile">
+                <div id="mobile-map" style="width:100%;height:420px;border-radius:8px 8px 0 0;background:#e8e6e0;"></div>
+                <div style="background:#fff;padding:10px 12px;border-radius:0 0 8px 8px;box-shadow:0 2px 12px rgba(0,0,0,0.1);">
+                    <select id="mobile-city-select" style="width:100%;padding:8px 10px;border:1px solid #e0e0e0;border-radius:6px;font-size:14px;background:#fff;color:#333;">
+                        <option value="">请选择大学城 / 或点击地图圆点</option>
+                        <option value="sysu">中山大学(广州)</option>
+                        <option value="scut">华南理工大学(广州)</option>
+                        <option value="gdut">广东工业大学(广州)</option>
+                        <option value="nju">南京大学(南京)</option>
+                        <option value="njnu">南京师范大学(南京)</option>
+                        <option value="njupt">南京邮电大学(南京)</option>
+                        <option value="dhu">东华大学(上海)</option>
+                        <option value="shisu">上海外国语大学(上海)</option>
+                    </select>
+                    <div id="mobile-map-result" style="margin-top:8px;font-size:12px;color:#999;text-align:center;">综合医院(蓝) · 社区中心(绿)</div>
+                </div>
+            </div>
         </div>
         </div>
         <div class="section-body">
@@ -753,6 +774,92 @@ footer{text-align:center;padding:2rem 1.5rem;font-size:.82rem;color:#B3C5D7;bord
 document.addEventListener('DOMContentLoaded',function(){var e=new IntersectionObserver(function(n){n.forEach(function(n){n.isIntersecting&&(n.target.classList.add('visible'),e.unobserve(n.target))})},{threshold:.12});document.querySelectorAll('.section,.title-container,.chart-wide,.chart-wrapper,.flex-layout,.map-container,.section-header,.section-body,.conclusion').forEach(function(n){n.classList.add('reveal');e.observe(n)})});
 var n=document.querySelectorAll("nav a");function u(){var s=window.scrollY+150,a="";n.forEach(function(t){var n=document.querySelector(t.getAttribute("href"));n&&n.offsetTop<=s&&(a=n.getAttribute("id"))}),n.forEach(function(t){t.classList.remove("active"),"#"+a===t.getAttribute("href")&&t.classList.add("active")})}
 window.addEventListener("scroll",u);window.addEventListener("load",u);
+</script>
+<!-- ====== 手机端地图：高德瓦片（避免 OpenStreetMap 国内访问超时） ====== -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" media="(max-width:768px)">
+<script>
+(function(){
+  if(!window.matchMedia||!window.matchMedia('(max-width: 768px)').matches)return;
+  window.addEventListener('load',function(){
+    var s=document.createElement('script');
+    s.src='https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';
+    s.onload=initMobileMap;
+    s.onerror=function(){
+      var el=document.getElementById('mobile-map');
+      if(el)el.innerHTML='<div style="display:flex;height:100%;align-items:center;justify-content:center;color:#999;font-size:13px;padding:20px;text-align:center;">地图加载失败，请切换网络或在桌面端查看</div>';
+    };
+    document.body.appendChild(s);
+  });
+  function initMobileMap(){
+    var mapEl=document.getElementById('mobile-map');
+    if(!mapEl||typeof L==='undefined')return;
+    var D={"sysu":[{"n":"小谷围街社区卫生服务中心预防接种门诊","t":"社区卫生服务中心","lat":23.058951,"lng":113.381961,"d":1193,"a":"小谷围街道"},{"n":"小谷围街佳苑社区卫生服务站","t":"社区卫生服务中心","lat":23.059191,"lng":113.380871,"d":1276,"a":"大学城星海东路与精英街交叉口西北80米"},{"n":"仑头社区卫生服务站","t":"社区卫生服务中心","lat":23.076207,"lng":113.378514,"d":1868,"a":"仑头村车站南路38号2层"},{"n":"官洲街官洲社区颐康服务站(南苑)","t":"社区卫生服务中心","lat":23.077313,"lng":113.379067,"d":1916,"a":"仁义街4号"},{"n":"广东省中医院大学城医院","t":"综合医院","lat":23.047395,"lng":113.389822,"d":1937,"a":"大学城内环西路55号"},{"n":"海珠区官洲街南苑社区卫生服务站","t":"社区卫生服务中心","lat":23.077838,"lng":113.379257,"d":1946,"a":"仁义街2号(官洲街南苑社区卫生服务站对面)"},{"n":"广东省工人医院","t":"综合医院","lat":23.066011,"lng":113.414071,"d":2285,"a":"长洲街长江路320号"},{"n":"长洲街深井社区卫生服务站","t":"社区卫生服务中心","lat":23.074079,"lng":113.412458,"d":2359,"a":"安新路10号"},{"n":"官洲街仑头东社区颐康服务站","t":"社区卫生服务中心","lat":23.078035,"lng":113.373748,"d":2371,"a":"环村北路21号"}],"scut":[{"n":"广东省中医院大学城医院","t":"综合医院","lat":23.047395,"lng":113.389822,"d":531,"a":"大学城内环西路55号"},{"n":"小谷围街社区卫生服务中心预防接种门诊","t":"社区卫生服务中心","lat":23.058951,"lng":113.381961,"d":1176,"a":"小谷围街道"},{"n":"小谷围街佳苑社区卫生服务站","t":"社区卫生服务中心","lat":23.059191,"lng":113.380871,"d":1279,"a":"大学城星海东路与精英街交叉口西北80米"},{"n":"南亭村关锡联社区卫生服务站","t":"社区卫生服务中心","lat":23.035193,"lng":113.38746,"d":1911,"a":"南亭西南门北70米"},{"n":"广东省工人医院","t":"综合医院","lat":23.066011,"lng":113.414071,"d":2851,"a":"长洲街长江路320号"},{"n":"仑头社区卫生服务站","t":"社区卫生服务中心","lat":23.076207,"lng":113.378514,"d":2959,"a":"仑头村车站南路38号2层"},{"n":"官洲街官洲社区颐康服务站(南苑)","t":"社区卫生服务中心","lat":23.077313,"lng":113.379067,"d":3049,"a":"仁义街4号"},{"n":"海珠区官洲街南苑社区卫生服务站","t":"社区卫生服务中心","lat":23.077838,"lng":113.379257,"d":3095,"a":"仁义街2号(官洲街南苑社区卫生服务站对面)"}],"gdut":[{"n":"广东省中医院大学城医院","t":"综合医院","lat":23.047395,"lng":113.389822,"d":469,"a":"大学城内环西路55号"},{"n":"南亭村关锡联社区卫生服务站","t":"社区卫生服务中心","lat":23.035193,"lng":113.38746,"d":1259,"a":"南亭西南门北70米"},{"n":"小谷围街社区卫生服务中心预防接种门诊","t":"社区卫生服务中心","lat":23.058951,"lng":113.381961,"d":1957,"a":"小谷围街道"},{"n":"小谷围街佳苑社区卫生服务站","t":"社区卫生服务中心","lat":23.059191,"lng":113.380871,"d":2048,"a":"大学城星海东路与精英街交叉口西北80米"},{"n":"广州市番禺区新造医院","t":"综合医院","lat":23.034966,"lng":113.416217,"d":2572,"a":"番禺区新造镇新广路24号"},{"n":"新造医院","t":"综合医院","lat":23.03493,"lng":113.416179,"d":2770,"a":"新造镇新广路24号广州市番禺区新造医院"},{"n":"番禺区南村镇市头社区卫生服务站","t":"社区卫生服务中心","lat":23.01833,"lng":113.402658,"d":3110,"a":"南村镇市新公路1401号"},{"n":"广东省工人医院","t":"综合医院","lat":23.066011,"lng":113.414071,"d":3141,"a":"长洲街长江路320号"}],"nju":[{"n":"左涤江医院","t":"综合医院","lat":32.115619,"lng":118.953211,"d":531,"a":"九乡河东路与远东大道交叉口东南260米"},{"n":"江苏省中医院(紫东院区)","t":"综合医院","lat":32.116932,"lng":118.986472,"d":2759,"a":"仙林街道仙林大道200号"},{"n":"栖宜社区医院","t":"社区卫生服务中心","lat":32.143589,"lng":118.951297,"d":2806,"a":"栖霞社区卫生服务中心东南门旁"},{"n":"栖霞社区卫生服务中心","t":"社区卫生服务中心","lat":32.143924,"lng":118.950879,"d":2850,"a":"栖霞街道栖霞南街47号"},{"n":"南京泰康仙林鼓楼医院1期","t":"综合医院","lat":32.095536,"lng":118.937324,"d":3211,"a":"灵山北路188号"},{"n":"泰康仙林鼓楼医院","t":"综合医院","lat":32.094878,"lng":118.936142,"d":3336,"a":"仙林街道灵山北路188号"}],"njnu":[{"n":"仙林社区卫生服务中心","t":"社区卫生服务中心","lat":32.096467,"lng":118.90849,"d":1681,"a":"文枢东路1号"},{"n":"泰康仙林鼓楼医院","t":"综合医院","lat":32.094878,"lng":118.936142,"d":2395,"a":"仙林街道灵山北路188号"},{"n":"南京泰康仙林鼓楼医院1期","t":"综合医院","lat":32.095536,"lng":118.937324,"d":2431,"a":"灵山北路188号"},{"n":"仙鹤门社区卫生服务中心","t":"社区卫生服务中心","lat":32.089901,"lng":118.898811,"d":2804,"a":"鹤鸣路59号"},{"n":"尧化社区卫生服务中心","t":"社区卫生服务中心","lat":32.127035,"lng":118.894997,"d":2883,"a":"尧佳路95号(仙新路地铁站3号口步行110米)"},{"n":"南京新港医院","t":"综合医院","lat":32.121327,"lng":118.886688,"d":3189,"a":"尧佳路64号"},{"n":"左涤江医院","t":"综合医院","lat":32.115619,"lng":118.953211,"d":3435,"a":"九乡河东路与远东大道交叉口东南260米"}],"njupt":[{"n":"仙林社区卫生服务中心","t":"社区卫生服务中心","lat":32.096467,"lng":118.90849,"d":1786,"a":"文枢东路1号"},{"n":"尧化社区卫生服务中心","t":"社区卫生服务中心","lat":32.127035,"lng":118.894997,"d":2100,"a":"尧佳路95号(仙新路地铁站3号口步行110米)"},{"n":"南京新港医院","t":"综合医院","lat":32.121327,"lng":118.886688,"d":2338,"a":"尧佳路64号"},{"n":"仙鹤门社区卫生服务中心","t":"社区卫生服务中心","lat":32.089901,"lng":118.898811,"d":2699,"a":"鹤鸣路59号"},{"n":"南京市栖霞区医院","t":"综合医院","lat":32.11767,"lng":118.880793,"d":2739,"a":"尧佳路28号"},{"n":"泰康仙林鼓楼医院","t":"综合医院","lat":32.094878,"lng":118.936142,"d":3209,"a":"仙林街道灵山北路188号"},{"n":"南京烷基苯医院","t":"综合医院","lat":32.114354,"lng":118.874969,"d":3234,"a":"尧佳路8号"}],"dhu":[{"n":"三湘四季社区卫生服务站","t":"社区卫生服务中心","lat":31.054148,"lng":121.230303,"d":1472,"a":"梅湘路与梅家浜路交叉口北220米"},{"n":"上海交通大学附属第一人民医院-南院","t":"综合医院","lat":31.04103,"lng":121.223176,"d":1582,"a":"新松江路650号"},{"n":"上海申园康复医院健康管理中心","t":"综合医院","lat":31.066489,"lng":121.214966,"d":1679,"a":"辰花路2125弄125号"},{"n":"上海市第一人民医院南部","t":"综合医院","lat":31.041486,"lng":121.225702,"d":1690,"a":"上海人民医院南院文翔路急诊部5号门微型消防站"}],"shisu":[{"n":"北翠路社区卫生服务站","t":"社区卫生服务中心","lat":31.036116,"lng":121.216063,"d":1215,"a":"北翠路1077号方松街道党群服务中心1层"},{"n":"上海交通大学附属第一人民医院-南院","t":"综合医院","lat":31.04103,"lng":121.223176,"d":1224,"a":"新松江路650号"},{"n":"上海市第一人民医院南部","t":"综合医院","lat":31.041486,"lng":121.225702,"d":1391,"a":"上海人民医院南院文翔路急诊部5号门微型消防站"}]};
+    var campusNames={"sysu":"中山大学(广州)","scut":"华南理工大学(广州)","gdut":"广东工业大学(广州)","nju":"南京大学(南京)","njnu":"南京师范大学(南京)","njupt":"南京邮电大学(南京)","dhu":"东华大学(上海)","shisu":"上海外国语大学(上海)"};
+    var campusCoords={"sysu":[23.0521,113.3829],"scut":[23.0421,113.3929],"gdut":[23.0426,113.3969],"nju":[32.1121,118.9512],"njnu":[32.0921,118.9092],"njupt":[32.1101,118.8921],"dhu":[31.0511,121.2252],"shisu":[31.0381,121.2192]};
+    var map=L.map('mobile-map',{center:[32.0,118.5],zoom:5,zoomControl:true,attributionControl:false});
+    L.tileLayer('https://wprd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',{
+      subdomains:['1','2','3','4'],
+      maxZoom:18,
+      attribution:'© 高德地图'
+    }).addTo(map);
+    var hospitalIcon=L.divIcon({className:'',html:'<div style="width:14px;height:14px;background:#1976d2;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3);"></div>',iconSize:[18,18],iconAnchor:[9,9]});
+    var communityIcon=L.divIcon({className:'',html:'<div style="width:14px;height:14px;background:#388e3c;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3);"></div>',iconSize:[18,18],iconAnchor:[9,9]});
+    var markers={};
+    for(var c in D){
+      markers[c]=[];
+      (function(c){
+        D[c].forEach(function(item){
+          var icon=item.t==='综合医院'?hospitalIcon:communityIcon;
+          var m=L.marker([item.lat,item.lng],{icon:icon}).addTo(map);
+          m.on('click',function(){showRes(c,item)});
+          markers[c].push(m);
+        });
+      })(c);
+    }
+    function showRes(campus,item){
+      var typeColor=item.t==='综合医院'?'#1976d2':'#388e3c';
+      document.getElementById('mobile-map-result').innerHTML=
+        '<div style="text-align:left;padding:10px;background:#f8f9ff;border-radius:6px;">'+
+        '<div style="font-size:13px;font-weight:600;color:#333;margin-bottom:4px;">'+item.n+'</div>'+
+        '<div style="font-size:11px;color:#666;margin-bottom:6px;line-height:1.5;">'+item.a+'</div>'+
+        '<div style="font-size:11px;"><span style="color:'+typeColor+';font-weight:500;">'+item.t+'</span> · 距离 '+item.d+' 米</div>'+
+        '</div>';
+    }
+    function showCampus(campus){
+      var coords=campusCoords[campus];
+      if(coords){
+        map.setView(coords,14);
+        document.getElementById('mobile-city-select').value=campus;
+        var list='<div style="font-size:11px;color:#666;margin-bottom:6px;font-weight:500;">'+campusNames[campus]+' 附近接种点（点击查看详情）：</div>';
+        D[campus].forEach(function(item,idx){
+          list+='<div data-campus="'+campus+'" data-idx="'+idx+'" style="padding:7px 8px;border-radius:6px;background:#f8f9ff;margin-bottom:4px;cursor:pointer;">'+
+            '<div style="font-size:12px;font-weight:500;color:#333;">'+item.n+'</div>'+
+            '<div style="font-size:10px;color:#999;margin-top:2px;">'+item.d+'米 · '+item.t+'</div></div>';
+        });
+        document.getElementById('mobile-map-result').innerHTML=list;
+        document.querySelectorAll('#mobile-map-result [data-idx]').forEach(function(el){
+          el.onclick=function(){
+            var cs=this.getAttribute('data-campus');
+            var idx=parseInt(this.getAttribute('data-idx'));
+            showRes(cs,D[cs][idx]);
+          };
+        });
+      }
+      for(var cc in markers){
+        markers[cc].forEach(function(m){m.setOpacity(cc===campus?1:0.3)});
+      }
+    }
+    document.getElementById('mobile-city-select').addEventListener('change',function(){
+      if(this.value)showCampus(this.value);
+    });
+    var observer=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting)setTimeout(function(){map.invalidateSize();},100);
+      });
+    },{threshold:0.1});
+    observer.observe(mapEl);
+  }
+})();
 </script>
 </body>
 </html>

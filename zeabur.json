@@ -1,0 +1,11 @@
+{
+  "name": "women-health-hpv",
+  "build": {
+    "command": "echo 'Static site - no build needed'",
+    "output": "."
+  },
+  "deploy": {
+    "type": "static",
+    "root": "."
+  }
+}

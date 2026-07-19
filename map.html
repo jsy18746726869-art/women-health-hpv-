@@ -2,43 +2,61 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>大学疫苗接种可及性</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5}
-#app{display:flex;height:100vh}
-#map{flex:1;width:100%}
-#panel{width:380px;background:#fff;border-left:1px solid #e0e0e0;display:flex;flex-direction:column;box-shadow:-2px 0 12px rgba(0,0,0,.05)}
-.ph{padding:20px;border-bottom:1px solid #f0f0f0;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff}
-.ph h1{font-size:18px;font-weight:600;display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.ph h1 i{font-size:22px}
-.ph .meta{font-size:12px;opacity:.9}
-.cs{padding:15px;border-bottom:1px solid #f0f0f0}
-.cs label{display:block;font-size:12px;color:#666;margin-bottom:8px}
-.cs select{width:100%;padding:10px 12px;border:1px solid #e0e0e0;border-radius:8px;font-size:14px;background:#fff;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
-.us{padding:15px;border-bottom:1px solid #f0f0f0;max-height:200px;overflow-y:auto}
-.us h3{font-size:14px;font-weight:600;color:#333;margin-bottom:10px}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;background:#f5f5f5}
+#app{display:flex;height:100%;height:100dvh}
+#map{flex:1;min-width:0}
+#panel{width:380px;background:#fff;border-left:1px solid #e0e0e0;display:flex;flex-direction:column;box-shadow:-2px 0 12px rgba(0,0,0,.05);z-index:1000}
+.ph{padding:16px 20px;border-bottom:1px solid #f0f0f0;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff}
+.ph h1{font-size:16px;font-weight:600;display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.ph .meta{font-size:11px;opacity:.9}
+.cs{padding:12px 15px;border-bottom:1px solid #f0f0f0}
+.cs label{display:block;font-size:11px;color:#666;margin-bottom:6px}
+.cs select{width:100%;padding:10px 12px;border:1px solid #e0e0e0;border-radius:8px;font-size:14px;background:#fff;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+.us{padding:12px 15px;border-bottom:1px solid #f0f0f0;overflow-y:auto;max-height:200px}
+.us h3{font-size:13px;font-weight:600;color:#333;margin-bottom:8px}
 .us ul{list-style:none}
-.us li{padding:10px;border-radius:8px;border:1px solid #f0f0f0;margin-bottom:8px;cursor:pointer;transition:all .2s}
-.us li:hover{border-color:#667eea;background:#f8f9ff}
-.us li.active{border-color:#667eea;background:#667eea;color:#fff}
-.us li .name{font-size:13px;font-weight:500}
-.us li .addr{font-size:11px;opacity:.7;margin-top:4px}
-#res{flex:1;padding:15px;overflow-y:auto}
-#res .emp{text-align:center;color:#999;padding:40px 20px}
-#res .emp i{font-size:36px;margin-bottom:12px;display:block}
-#res .emp p{font-size:14px}
-#res .item{background:#f8f9ff;border-radius:10px;padding:15px;margin-bottom:12px}
-#res .item .name{font-size:14px;font-weight:600;color:#333;margin-bottom:6px}
-#res .item .addr{font-size:12px;color:#666;margin-bottom:8px}
-#res .item .info{display:flex;gap:15px;font-size:12px}
-#res .item .info span{padding:4px 8px;border-radius:4px}
+.us li{padding:10px 12px;border-radius:8px;border:1px solid #f0f0f0;margin-bottom:6px;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:rgba(102,126,234,.15);min-height:44px;display:flex;flex-direction:column;justify-content:center}
+.us li:active,.us li.active{border-color:#667eea;background:#667eea;color:#fff}
+.us li .name{font-size:12px;font-weight:500;line-height:1.3}
+.us li .addr{font-size:10px;opacity:.7;margin-top:2px;line-height:1.3}
+#res{flex:1;padding:12px 15px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+#res .emp{text-align:center;color:#999;padding:30px 15px}
+#res .emp .icon{font-size:32px;margin-bottom:8px;display:block;opacity:.6}
+#res .emp p{font-size:13px}
+#res .item{background:#f8f9ff;border-radius:10px;padding:14px;margin-bottom:10px}
+#res .item .name{font-size:13px;font-weight:600;color:#333;margin-bottom:4px;line-height:1.4}
+#res .item .addr{font-size:11px;color:#666;margin-bottom:6px;line-height:1.3}
+#res .item .info{display:flex;gap:10px;font-size:11px;flex-wrap:wrap}
+#res .item .info span{padding:3px 8px;border-radius:4px;white-space:nowrap}
 #res .item .info .type-hospital{background:#e3f2fd;color:#1976d2}
 #res .item .info .type-community{background:#e8f5e9;color:#388e3c}
 #res .item .info .dist{background:#fff3e0;color:#f57c00}
-.pf{padding:12px 15px;font-size:11px;color:#999;border-top:1px solid #f0f0f0}
-@media(max-width:768px){#app{flex-direction:column}#panel{width:100%;height:40%;border-left:none;border-top:1px solid #e0e0e0}}
+.pf{padding:10px 15px;font-size:10px;color:#999;border-top:1px solid #f0f0f0;text-align:center}
+/* Leaflet overrides for mobile */
+.leaflet-control-zoom a{width:36px!important;height:36px!important;line-height:36px!important;font-size:18px!important}
+.leaflet-touch .leaflet-control-attribution{font-size:9px!important}
+
+@media(max-width:768px){
+  #app{flex-direction:column}
+  #map{height:55%;height:55dvh;flex:none}
+  #panel{width:100%;height:45%;height:45dvh;flex:none;border-left:none;border-top:1px solid #e0e0e0;display:flex;flex-direction:column}
+  .us{max-height:150px}
+  .ph{padding:12px 15px}
+  .ph h1{font-size:15px}
+  .cs select{font-size:16px;padding:12px}
+  .us li{min-height:48px;padding:12px}
+  #res .item{padding:14px}
+}
+@media(max-width:400px){
+  .ph{padding:10px 12px}
+  .ph h1{font-size:14px}
+  .cs{padding:10px 12px}
+  .us{max-height:120px}
+}
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
@@ -47,11 +65,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   <div id="map"></div>
   <div id="panel">
     <div class="ph">
-      <h1><i class="fas fa-syringe"></i>大学疫苗接种可及性</h1>
-      <div class="meta">综合医院(蓝)社区中心(绿)</div>
+      <h1>&#128137; 大学疫苗接种可及性</h1>
+      <div class="meta">&#128300; 综合医院 &nbsp;&#127807; 社区中心</div>
     </div>
     <div class="cs" id="cs">
-      <label>请选择大学城 / 或点击地图圆点</label>
+      <label>选择大学城 / 点击地图圆点</label>
       <select id="city-select">
         <option value="">请选择大学城</option>
         <option value="sysu">中山大学(广州)</option>
@@ -65,26 +83,111 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
       </select>
     </div>
     <div class="us" id="us"></div>
-    <div id="res"><div class="emp"><i class="fas fa-hand-pointer"></i><p>点击上方大学城名称</p></div></div>
+    <div id="res"><div class="emp"><span class="icon">&#128070;</span><p>选择大学城查看接种点</p></div></div>
     <div class="pf">仅含正规医院与社区卫生服务中心</div>
   </div>
 </div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
+(function(){
 var D={"sysu":[{"n":"小谷围街社区卫生服务中心预防接种门诊","t":"社区卫生服务中心","lat":23.058951,"lng":113.381961,"d":1193,"a":"小谷围街道"},{"n":"小谷围街佳苑社区卫生服务站","t":"社区卫生服务中心","lat":23.059191,"lng":113.380871,"d":1276,"a":"大学城星海东路与精英街交叉口西北80米"},{"n":"仑头社区卫生服务站","t":"社区卫生服务中心","lat":23.076207,"lng":113.378514,"d":1868,"a":"仑头村车站南路38号2层"},{"n":"官洲街官洲社区颐康服务站(南苑)","t":"社区卫生服务中心","lat":23.077313,"lng":113.379067,"d":1916,"a":"仁义街4号"},{"n":"广东省中医院大学城医院","t":"综合医院","lat":23.047395,"lng":113.389822,"d":1937,"a":"大学城内环西路55号"},{"n":"海珠区官洲街南苑社区卫生服务站","t":"社区卫生服务中心","lat":23.077838,"lng":113.379257,"d":1946,"a":"仁义街2号(官洲街南苑社区卫生服务站对面)"},{"n":"广东省工人医院","t":"综合医院","lat":23.066011,"lng":113.414071,"d":2285,"a":"长洲街长江路320号"},{"n":"长洲街深井社区卫生服务站","t":"社区卫生服务中心","lat":23.074079,"lng":113.412458,"d":2359,"a":"安新路10号"},{"n":"官洲街仑头东社区颐康服务站","t":"社区卫生服务中心","lat":23.078035,"lng":113.373748,"d":2371,"a":"环村北路21号"}],"scut":[{"n":"广东省中医院大学城医院","t":"综合医院","lat":23.047395,"lng":113.389822,"d":531,"a":"大学城内环西路55号"},{"n":"小谷围街社区卫生服务中心预防接种门诊","t":"社区卫生服务中心","lat":23.058951,"lng":113.381961,"d":1176,"a":"小谷围街道"},{"n":"小谷围街佳苑社区卫生服务站","t":"社区卫生服务中心","lat":23.059191,"lng":113.380871,"d":1279,"a":"大学城星海东路与精英街交叉口西北80米"},{"n":"南亭村关锡联社区卫生服务站","t":"社区卫生服务中心","lat":23.035193,"lng":113.38746,"d":1911,"a":"南亭西南门北70米"},{"n":"广东省工人医院","t":"综合医院","lat":23.066011,"lng":113.414071,"d":2851,"a":"长洲街长江路320号"},{"n":"仑头社区卫生服务站","t":"社区卫生服务中心","lat":23.076207,"lng":113.378514,"d":2959,"a":"仑头村车站南路38号2层"},{"n":"官洲街官洲社区颐康服务站(南苑)","t":"社区卫生服务中心","lat":23.077313,"lng":113.379067,"d":3049,"a":"仁义街4号"},{"n":"海珠区官洲街南苑社区卫生服务站","t":"社区卫生服务中心","lat":23.077838,"lng":113.379257,"d":3095,"a":"仁义街2号(官洲街南苑社区卫生服务站对面)"}],"gdut":[{"n":"广东省中医院大学城医院","t":"综合医院","lat":23.047395,"lng":113.389822,"d":469,"a":"大学城内环西路55号"},{"n":"南亭村关锡联社区卫生服务站","t":"社区卫生服务中心","lat":23.035193,"lng":113.38746,"d":1259,"a":"南亭西南门北70米"},{"n":"小谷围街社区卫生服务中心预防接种门诊","t":"社区卫生服务中心","lat":23.058951,"lng":113.381961,"d":1957,"a":"小谷围街道"},{"n":"小谷围街佳苑社区卫生服务站","t":"社区卫生服务中心","lat":23.059191,"lng":113.380871,"d":2048,"a":"大学城星海东路与精英街交叉口西北80米"},{"n":"广州市番禺区新造医院","t":"综合医院","lat":23.034966,"lng":113.416217,"d":2572,"a":"番禺区新造镇新广路24号"},{"n":"新造医院","t":"综合医院","lat":23.03493,"lng":113.416179,"d":2770,"a":"新造镇新广路24号广州市番禺区新造医院"},{"n":"番禺区南村镇市头社区卫生服务站","t":"社区卫生服务中心","lat":23.01833,"lng":113.402658,"d":3110,"a":"南村镇市新公路1401号"},{"n":"广东省工人医院","t":"综合医院","lat":23.066011,"lng":113.414071,"d":3141,"a":"长洲街长江路320号"}],"nju":[{"n":"左涤江医院","t":"综合医院","lat":32.115619,"lng":118.953211,"d":531,"a":"九乡河东路与远东大道交叉口东南260米"},{"n":"江苏省中医院(紫东院区)","t":"综合医院","lat":32.116932,"lng":118.986472,"d":2759,"a":"仙林街道仙林大道200号"},{"n":"栖宜社区医院","t":"社区卫生服务中心","lat":32.143589,"lng":118.951297,"d":2806,"a":"栖霞社区卫生服务中心东南门旁"},{"n":"栖霞社区卫生服务中心","t":"社区卫生服务中心","lat":32.143924,"lng":118.950879,"d":2850,"a":"栖霞街道栖霞南街47号"},{"n":"南京泰康仙林鼓楼医院1期","t":"综合医院","lat":32.095536,"lng":118.937324,"d":3211,"a":"灵山北路188号"},{"n":"泰康仙林鼓楼医院","t":"综合医院","lat":32.094878,"lng":118.936142,"d":3336,"a":"仙林街道灵山北路188号"}],"njnu":[{"n":"仙林社区卫生服务中心","t":"社区卫生服务中心","lat":32.096467,"lng":118.90849,"d":1681,"a":"文枢东路1号"},{"n":"泰康仙林鼓楼医院","t":"综合医院","lat":32.094878,"lng":118.936142,"d":2395,"a":"仙林街道灵山北路188号"},{"n":"南京泰康仙林鼓楼医院1期","t":"综合医院","lat":32.095536,"lng":118.937324,"d":2431,"a":"灵山北路188号"},{"n":"仙鹤门社区卫生服务中心","t":"社区卫生服务中心","lat":32.089901,"lng":118.898811,"d":2804,"a":"鹤鸣路59号"},{"n":"尧化社区卫生服务中心","t":"社区卫生服务中心","lat":32.127035,"lng":118.894997,"d":2883,"a":"尧佳路95号(仙新路地铁站3号口步行110米)"},{"n":"南京新港医院","t":"综合医院","lat":32.121327,"lng":118.886688,"d":3189,"a":"尧佳路64号"},{"n":"左涤江医院","t":"综合医院","lat":32.115619,"lng":118.953211,"d":3435,"a":"九乡河东路与远东大道交叉口东南260米"}],"njupt":[{"n":"仙林社区卫生服务中心","t":"社区卫生服务中心","lat":32.096467,"lng":118.90849,"d":1786,"a":"文枢东路1号"},{"n":"尧化社区卫生服务中心","t":"社区卫生服务中心","lat":32.127035,"lng":118.894997,"d":2100,"a":"尧佳路95号(仙新路地铁站3号口步行110米)"},{"n":"南京新港医院","t":"综合医院","lat":32.121327,"lng":118.886688,"d":2338,"a":"尧佳路64号"},{"n":"仙鹤门社区卫生服务中心","t":"社区卫生服务中心","lat":32.089901,"lng":118.898811,"d":2699,"a":"鹤鸣路59号"},{"n":"南京市栖霞区医院","t":"综合医院","lat":32.11767,"lng":118.880793,"d":2739,"a":"尧佳路28号"},{"n":"泰康仙林鼓楼医院","t":"综合医院","lat":32.094878,"lng":118.936142,"d":3209,"a":"仙林街道灵山北路188号"},{"n":"南京烷基苯医院","t":"综合医院","lat":32.114354,"lng":118.874969,"d":3234,"a":"尧佳路8号"}],"dhu":[{"n":"三湘四季社区卫生服务站","t":"社区卫生服务中心","lat":31.054148,"lng":121.230303,"d":1472,"a":"梅湘路与梅家浜路交叉口北220米"},{"n":"上海交通大学附属第一人民医院-南院","t":"综合医院","lat":31.04103,"lng":121.223176,"d":1582,"a":"新松江路650号"},{"n":"上海申园康复医院健康管理中心","t":"综合医院","lat":31.066489,"lng":121.214966,"d":1679,"a":"辰花路2125弄125号"},{"n":"上海市第一人民医院南部","t":"综合医院","lat":31.041486,"lng":121.225702,"d":1690,"a":"上海人民医院南院文翔路急诊部5号门微型消防站"}],"shisu":[{"n":"北翠路社区卫生服务站","t":"社区卫生服务中心","lat":31.036116,"lng":121.216063,"d":1215,"a":"北翠路1077号方松街道党群服务中心1层"},{"n":"上海交通大学附属第一人民医院-南院","t":"综合医院","lat":31.04103,"lng":121.223176,"d":1224,"a":"新松江路650号"},{"n":"上海市第一人民医院南部","t":"综合医院","lat":31.041486,"lng":121.225702,"d":1391,"a":"上海人民医院南院文翔路急诊部5号门微型消防站"}]};
 var campusNames={"sysu":"中山大学(广州)","scut":"华南理工大学(广州)","gdut":"广东工业大学(广州)","nju":"南京大学(南京)","njnu":"南京师范大学(南京)","njupt":"南京邮电大学(南京)","dhu":"东华大学(上海)","shisu":"上海外国语大学(上海)"};
 var campusCoords={"sysu":[23.0521,113.3829],"scut":[23.0421,113.3929],"gdut":[23.0426,113.3969],"nju":[32.1121,118.9512],"njnu":[32.0921,118.9092],"njupt":[32.1101,118.8921],"dhu":[31.0511,121.2252],"shisu":[31.0381,121.2192]};
-var map=L.map('map',{center:[32.0,118.5],zoom:6});
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
+
+var isMobile=window.innerWidth<=768;
+var map=L.map('map',{
+  center:[32.0,118.5],
+  zoom:6,
+  zoomControl:true,
+  tap:true,
+  dragging:true,
+  touchZoom:true,
+  scrollWheelZoom:!isMobile,
+  doubleClickZoom:true,
+  boxZoom:!isMobile
+});
+
+if(isMobile){
+  map.on('touchstart',function(){map.scrollWheelZoom.disable()});
+}
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  maxZoom:18
+}).addTo(map);
+
 var markers={};
-var hospitalIcon=L.divIcon({className:'hospital-marker',html:'<div style="width:16px;height:16px;background:#1976d2;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);"></div>',iconSize:[22,22],iconAnchor:[11,11]});
-var communityIcon=L.divIcon({className:'community-marker',html:'<div style="width:16px;height:16px;background:#388e3c;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);"></div>',iconSize:[22,22],iconAnchor:[11,11]});
-for(var c in D){var data=D[c];data.forEach(function(item){var icon=item.t==='综合医院'?hospitalIcon:communityIcon;var marker=L.marker([item.lat,item.lng],{icon:icon}).addTo(map);marker.on('click',function(){showRes(c,item)});if(!markers[c])markers[c]=[];markers[c].push(marker)})}
-function showCampus(campus){var coords=campusCoords[campus];if(coords){map.setView(coords,14);document.getElementById('city-select').value=campus;var ul='<h3>'+campusNames[campus]+'</h3><ul>';D[campus].forEach(function(item,idx){ul+='<li data-idx="'+idx+'" onclick="selectHospital(\''+campus+'\','+idx+')"><div class="name">'+item.n+'</div><div class="addr">'+item.a+'</div></li>'});ul+='</ul>';document.getElementById('us').innerHTML=ul}for(var c in markers){markers[c].forEach(function(m){m.setOpacity(c===campus?1:.3)})}}
-function selectHospital(campus,idx){var data=D[campus][idx];showRes(campus,data);document.querySelectorAll('#us li').forEach(function(el){el.classList.remove('active')});document.querySelector('#us li[data-idx="'+idx+'"]').classList.add('active')}
-function showRes(campus,item){var typeClass=item.t==='综合医院'?'type-hospital':'type-community';var res='<div class="item"><div class="name">'+item.n+'</div><div class="addr">'+item.a+'</div><div class="info"><span class="'+typeClass+'">'+item.t+'</span><span class="dist">距离 '+item.d+' 米</span></div></div>';document.getElementById('res').innerHTML=res}
-document.getElementById('city-select').addEventListener('change',function(){var val=this.value;if(val)showCampus(val)});
+var hospitalIcon=L.divIcon({
+  className:'hospital-marker',
+  html:'<div style="width:16px;height:16px;background:#1976d2;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);"></div>',
+  iconSize:[22,22],
+  iconAnchor:[11,11]
+});
+var communityIcon=L.divIcon({
+  className:'community-marker',
+  html:'<div style="width:16px;height:16px;background:#388e3c;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);"></div>',
+  iconSize:[22,22],
+  iconAnchor:[11,11]
+});
+
+for(var c in D){
+  var data=D[c];
+  data.forEach(function(item){
+    var icon=item.t==='综合医院'?hospitalIcon:communityIcon;
+    var marker=L.marker([item.lat,item.lng],{icon:icon}).addTo(map);
+    marker.bindTooltip(item.n,{direction:'top',offset:[0,-16]});
+    marker.on('click',function(){showRes(c,item)});
+    if(!markers[c])markers[c]=[];
+    markers[c].push(marker);
+  });
+}
+
+function showCampus(campus){
+  var coords=campusCoords[campus];
+  if(coords){
+    map.setView(coords,14,{animate:true,duration:0.5});
+    document.getElementById('city-select').value=campus;
+    var ul='<h3>'+campusNames[campus]+'</h3><ul>';
+    D[campus].forEach(function(item,idx){
+      ul+='<li data-idx="'+idx+'" ontouchstart="" onclick="selectHospital(\''+campus+'\','+idx+')"><div class="name">'+item.n+'</div><div class="addr">'+item.a+'</div></li>';
+    });
+    ul+='</ul>';
+    document.getElementById('us').innerHTML=ul;
+  }
+  for(var c in markers){
+    markers[c].forEach(function(m){m.setOpacity(c===campus?1:.3)});
+  }
+}
+
+function selectHospital(campus,idx){
+  var data=D[campus][idx];
+  showRes(campus,data);
+  var lis=document.querySelectorAll('#us li');
+  for(var i=0;i<lis.length;i++)lis[i].classList.remove('active');
+  var active=document.querySelector('#us li[data-idx="'+idx+'"]');
+  if(active)active.classList.add('active');
+}
+
+function showRes(campus,item){
+  var typeClass=item.t==='综合医院'?'type-hospital':'type-community';
+  var typeIcon=item.t==='综合医院'?'&#128300;':'&#127807;';
+  var res='<div class="item"><div class="name">'+item.n+'</div><div class="addr">'+item.a+'</div><div class="info"><span class="'+typeClass+'">'+item.t+'</span><span class="dist">距离 '+item.d+' 米</span></div></div>';
+  document.getElementById('res').innerHTML=res;
+}
+
+document.getElementById('city-select').addEventListener('change',function(){
+  var val=this.value;
+  if(val)showCampus(val);
+});
+
+// Fix Leaflet on iOS: invalidate size after orientation change
+window.addEventListener('orientationchange',function(){
+  setTimeout(function(){map.invalidateSize()},200);
+});
+
+// Fix for iframe embedding
+setTimeout(function(){map.invalidateSize()},100);
+})();
 </script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </body>
 </html>

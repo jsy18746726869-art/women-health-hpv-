@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>免疫可及：HPV疫苗政策落地过程中的认知壁垒</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html, body{overflow-x:hidden}
+html{scroll-behavior:smooth;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.8;color:#4c4c4c}
+body{background:#f5f7fa;min-height:100vh}
+a{color:#7C8CDE;text-decoration:none;transition:color .3s}
+a:hover{color:#5a6dbf}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid #e8e8e8;padding:0 .5rem}
+nav ul{display:flex;list-style:none;overflow-x:auto;gap:0;scrollbar-width:none;-ms-overflow-style:none;max-width:1200px;margin:0 auto;justify-content:space-around}
+nav ul::-webkit-scrollbar{display:none}
+nav li{flex-shrink:0}
+nav a{display:block;padding:.6rem .5rem;font-size:.75rem;color:#4c4c4c;white-space:nowrap;border-bottom:2px solid transparent}
+nav a.active{border-bottom-color:#7C8CDE;color:#7C8CDE}
+.container{max-width:100%;margin:0 auto;padding:20px;background:#fff;border-radius:8px;margin-bottom:20px}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem 1rem 8vh 1rem;background:linear-gradient(180deg,#e8f4fd 0%,#f5f7fa 100%)}
+.hero-container{padding-top:80px}
+.hero h1{font-size:1.5rem;font-weight:700;color:#333;line-height:1.4;margin-bottom:.8rem}
+.hero .hero-main{font-size:2.2rem;display:block;margin-bottom:.2rem;color:#7C8CDE}
+.hero .desc{font-size:.95rem;color:#5A6ABF;line-height:1.7;font-weight:600}
+.scroll-hint{position:absolute;left:50%;transform:translateX(-50%);bottom:30px;font-size:.9rem;color:#7C8CDE;font-weight:600;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+.section-divider{padding:25px 1rem;background:#7C8CDE;color:#fff;margin:20px 0}
+.section-divider h2{font-size:1.2rem;font-weight:700;line-height:1.4}
+.section{padding:2rem 1rem}
+.section-header{margin-bottom:1.5rem;border-left:4px solid #7C8CDE;padding-left:1rem}
+.section-number{font-size:.75rem;color:#7C8CDE;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem}
+.section-header h2{font-size:1.2rem;font-weight:700;color:#333;margin-bottom:.2rem}
+.section-header .section-subtitle{font-size:.85rem;color:#7C8CDE;font-weight:600}
+.section-body{font-size:.9rem;line-height:1.9;color:#4c4c4c;text-align:left}
+.section-body p{margin-bottom:.8rem}
+.section-body strong{color:#5A6ABF;font-weight:700}
+.chart-placeholder{width:100%;height:280px;background:#f0f4f8;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:1rem 0;color:#999;border:1px dashed #d0d0d0}
+.chart-placeholder svg{width:50px;height:50px;margin-bottom:8px;opacity:.5}
+.chart-placeholder p{font-size:.8rem;text-align:center;padding:0 1rem}
+.chart-hint{text-align:center;font-size:.75rem;color:#b0b0b0;margin-top:.5rem}
+.flex-layout{display:flex;flex-direction:column;gap:1.5rem;margin:1rem 0}
+.flex-layout .flex-chart,.flex-layout .flex-text{width:100%}
+.flex-text{text-align:left}
+img{max-width:100%;height:auto;display:block;border-radius:8px}
+.map-container{width:100%;height:300px;background:#e8e6e0;border-radius:8px;margin:1rem 0;display:flex;align-items:center;justify-content:center;color:#999}
+.map-container svg{width:40px;height:40px;margin-bottom:8px;opacity:.5}
+.conclusion{text-align:center;padding:2rem 1rem}
+.conclusion h2{font-size:1.5rem;font-weight:700;color:#333;margin-bottom:1rem}
+.conclusion p{font-size:.9rem;line-height:1.9;color:#4c4c4c}
+footer{text-align:center;padding:1.5rem;font-size:.75rem;color:#B3C5D7;border-top:1px solid #e8e8e8}
+.references{padding:2rem 1rem;font-size:.75rem;line-height:1.6;color:#666;background:#f8f9fa}
+.references h2{font-size:1rem;font-weight:700;color:#333;margin-bottom:1rem}
+.references p{margin-bottom:.5rem}
+</style>
+</head>
+<body>
+<nav id="navbar">
+    <ul>
+        <li><a href="#part1">宫颈癌的可预防性</a></li>
+        <li><a href="#part2">疫苗可及性的政策推进</a></li>
+        <li><a href="#part3">免费接种政策的覆盖缺口</a></li>
+        <li><a href="#part4">接种决策中的认知壁垒</a></li>
+        <li><a href="#part5">从知晓走向行动</a></li>
+        <li><a href="#conclusion">结语</a></li>
+    </ul>
+</nav>
+<section class="hero" id="hero">
+    <div class="hero-container">
+        <h1><span class="hero-main">免疫可及</span><br>HPV疫苗政策落地过程中的认知壁垒</h1>
+        <p class="desc">从世界目标、中国政策、治疗成本到校园传播，宫颈癌防治真正缺失的，不再只是一针疫苗。</p>
+        <div class="scroll-hint">↓ 向下滚动</div>
+    </div>
+</section>
+<section class="section-divider" id="part1">
+    <h2>宫颈癌的可预防性：把预防放在癌变之前</h2>
+</section>
+<section class="section" id="sec01">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">01 / IMMUNITY ACCESS</div>
+            <h2>预防早有答案</h2>
+            <p class="section-subtitle">宫颈癌明明有疫苗可防，为何每年仍有数十万女性抱憾离世？</p>
+        </div>
+        <div class="section-body">
+            <p>在所有恶性肿瘤里，宫颈癌几乎是唯一的例外。</p>
+            <p><strong>宫颈癌病因清晰，疫苗可防，筛查可控</strong>，却仍是<strong>全球女性第四大常见癌症</strong>。</p>
+            <p>根据2026年7月公布的最新数据，2024年约<strong>60.4万</strong>例新发病例中，超过<strong>87.3%</strong>发生在<strong>中低收入国家</strong>，近<strong>90%</strong>的<strong>死亡</strong>也由这些地区承担；中国与印度合计贡献了<strong>全球近38%</strong>的疾病负担。</p>
+        </div>
+        <div class="chart-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/></svg>
+            <p>全球宫颈癌新发病例分布</p>
+        </div>
+        <p class="chart-hint">（完整图表在完整版中查看）</p>
+    </div>
+</section>
+<section class="section" id="sec02">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">02 / IMMUNITY ACCESS</div>
+            <h2>病毒潜伏的十年</h2>
+            <p class="section-subtitle">持续性高危感染通向癌变，漫长潜伏期既是窗口也是盲区</p>
+        </div>
+        <div class="section-body">
+            <p>这种严重的疾病负担，指向同一个明确的病因——<strong>HPV病毒</strong>。它并非单一类型的病毒，而是<strong>庞大的型别家族</strong>。</p>
+            <p>宫颈癌<strong>99.7%</strong>由<strong>皮肤高危型HPV</strong>（尤以<strong>16、18型</strong>为主）导致，<strong>HPV疫苗</strong>防护的核心目标就是覆盖<strong>高危型病毒</strong>。</p>
+        </div>
+        <div class="chart-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/></svg>
+            <p>HPV病毒型别分布</p>
+        </div>
+        <div class="section-body">
+            <p>同时，它们也是<strong>肛门癌、外阴癌、口腔癌</strong>等<strong>多种癌症的重要病因</strong>。</p>
+        </div>
+        <div class="chart-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M8 20V4M3 12h18"/></svg>
+            <p>HPV相关癌症风险</p>
+        </div>
+        <div class="section-body">
+            <p>多数HPV感染会在一两年内被免疫系统<strong>自然清除</strong>，唯有<strong>持续性感染</strong>才会沿着病变一路发展为<strong>宫颈癌</strong>。这一过程往往长达<strong>十年以上</strong>。</p>
+            <img src="chatgpt_hpv_small.jpg" alt="HPV感染自然史示意">
+            <p>漫长的潜伏期，正是疫苗与筛查发挥作用的窗口。但这漫长的"无声"正是<strong>最致命的伪装</strong>。</p>
+        </div>
+    </div>
+</section>
+<section class="section" id="sec03">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">03 / IMMUNITY ACCESS</div>
+            <h2>迫近的年轻面孔</h2>
+            <p class="section-subtitle">中国新发病例中，18-24岁女性HPV检出率竟达18.8%</p>
+        </div>
+        <div class="section-body">
+            <p>60.4万新发病例中，中国以<strong>14.49万</strong>例的庞大数字占全球病例约<strong>23.98%</strong>的占比，标准化年发病率在<strong>20年间</strong>从<strong>9.21/10万</strong>持续攀升至<strong>13.0/10万</strong>，年均增速<strong>超1.74%</strong>。</p>
+        </div>
+        <div class="chart-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M8 20V4M3 12h18"/></svg>
+            <p>中国宫颈癌发病率趋势</p>
+        </div>
+        <div class="flex-layout">
+            <div class="flex-text">
+                <p>更值得警惕的是，宫颈癌<strong>正加速逼近</strong><strong>39岁以下的年轻女性</strong>。其中最陡峭的一座直指<strong>18至24岁</strong>——病毒最先盯上的，正是<strong>刚刚迈入大学校园的年轻女孩</strong>。</p>
+            </div>
+            <div class="flex-chart">
+                <img src="young_face_small.jpg" alt="">
+            </div>
+        </div>
+        <div class="chart-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M8 20V4M3 12h18"/></svg>
+            <p>不同年龄段HPV感染率</p>
+        </div>
+    </div>
+</section>
+<section class="section-divider" id="part2">
+    <h2>从高价自费到免费接种：疫苗可及性的政策推进</h2>
+</section>
+<section class="section" id="sec04">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">04 / IMMUNITY ACCESS</div>
+            <h2>被差距染色的地图</h2>
+            <p class="section-subtitle">2017—2022年，全国自费阶段首剂接种率最高约25%，西部多地仅2%—4%</p>
+        </div>
+        <div class="section-body">
+            <p>2017至2022年，免疫的屏障主要依赖个人自费。全国绝大多数省份的接种率仍在<strong>个位数</strong>徘徊；在广大的西部地区，打完三针的女孩甚至不足<strong>1%</strong>。</p>
+        </div>
+        <div class="chart-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2v20"/></svg>
+            <p>中国各省份HPV疫苗接种率分布</p>
+        </div>
+    </div>
+</section>
+<section class="section" id="sec05">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">05 / IMMUNITY ACCESS</div>
+            <h2>价格退潮，免疫重获生机</h2>
+            <p class="section-subtitle">二价疫苗由329元降至27.5元，38亿元可覆盖2025—2030年规划</p>
+        </div>
+        <div class="section-body">
+            <p>曾经，进口九价全程接种成本将近<strong>4000元</strong>，但这个障碍正随着国产疫苗的诞生悄然消融。</p>
+            <p><strong>单支国产二价疫苗</strong>从上市初期的<strong>329元</strong>降至<strong>27.5元</strong>的历史底价，<strong>首款国产九价</strong>也以<strong>499元</strong>终结了千元的垄断。</p>
+            <p>按照这一价格，首批<strong>4.25亿元</strong>的财政预算，足以为近<strong>772万</strong>适龄女孩接种疫苗。</p>
+        </div>
+        <div class="chart-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M8 20V4M3 12h18"/></svg>
+            <p>HPV疫苗价格变化趋势</p>
+        </div>
+    </div>
+</section>
+<section class="section" id="sec06">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">06 / IMMUNITY ACCESS</div>
+            <h2>从世界路线到中国方案</h2>
+            <p class="section-subtitle">WHO提出90-70-90目标，中国18个省级行政区试点后，全国13岁女孩免费接种</p>
+        </div>
+        <div class="section-body">
+            <p>面对日益严峻的疾病负担，WHO在2020年提出消除宫颈癌"90-70-90"目标：<strong>90%</strong>的女孩<strong>15岁</strong>前完成接种，<strong>70%</strong>的女性接受高效筛查，<strong>90%</strong>的患者获得治疗。</p>
+        </div>
+        <img src="hpv_history_small.jpg" alt="HPV疫苗发展历程">
+        <img src="policy_timeline_small.jpg" alt="中国各省市 HPV 疫苗普惠接种政策时间演进表">
+        <div class="section-body">
+            <p>中国从地方试点起步，在五年间实现<strong>18个省级行政区</strong>接力推进；<strong>海南</strong>2024年目标人群覆盖率超<strong>90%</strong>，<strong>济南</strong>达<strong>91.5%</strong>。</p>
+            <p><strong>2025年11月，七部门发文，全国年满13周岁女孩免费接种HPV疫苗计划正式启动。</strong></p>
+        </div>
+    </div>
+</section>
+<section class="section-divider" id="part3">
+    <h2>免费接种政策的覆盖缺口：免疫之光尚未照到她们</h2>
+</section>
+<section class="section" id="sec07">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">07 / IMMUNITY ACCESS</div>
+            <h2>政策之外的账单</h2>
+            <p class="section-subtitle">女大学生仍多靠自费接种，而宫颈癌治疗费用可达数万至十余万元</p>
+        </div>
+        <div class="section-body">
+            <p>免费政策主要覆盖<strong>13岁女孩</strong>，但正处于感染高峰的<strong>18—24岁女大学生们</strong>仍要<strong>独自面对</strong><strong>自费接种、预约排队与信息不透明</strong>。</p>
+            <p>一旦在预防的最前端失守，随之而来的将是<strong>沉重的代价</strong>：<strong>早期宫颈癌</strong>的手术自付金额约在<strong>2万—3.8万</strong>元；若不幸步入<strong>复发转移阶段</strong>，仅<strong>免疫药物</strong>每年的<strong>自费</strong>开销便高达<strong>8万—15</strong>万元。</p>
+        </div>
+        <div class="chart-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M8 20V4M3 12h18"/></svg>
+            <p>宫颈癌治疗费用对比</p>
+        </div>
+    </div>
+</section>
+<section class="section-divider" id="part4">
+    <h2>接种决策中的认知壁垒：疫苗利弊众声纷杂</h2>
+</section>
+<section class="section" id="sec08">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">08 / IMMUNITY ACCESS</div>
+            <h2>地图之外的屏障</h2>
+            <p class="section-subtitle">政策全面铺开前，主动接种意愿55.5%—83.7%，真实接种率仅19%</p>
+        </div>
+        <div class="section-body">
+            <p>数据显示，公众的主动接种意愿最高可达<strong>83.7%</strong>，但真实的接种率却仅有<strong>19.0%</strong>。在地图上检索大学城周边的接种网点，你会看到一个个代表着"可及性"的坐标。</p>
+        </div>
+        <div class="map-container">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <p>接种点分布地图</p>
+        </div>
+        <div class="section-body">
+            <p>但这些看似近在咫尺的坐标，<strong>未能转化为真实的保护伞</strong>。这本质上是因为，HPV疫苗的可及性障碍并不只表现为<strong>价格和供应不足</strong>，也包括<strong>信息的不透明与难获取</strong>。</p>
+        </div>
+        <div class="chart-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/></svg>
+            <p>接种意愿与实际接种率对比</p>
+        </div>
+    </div>
+</section>
+<section class="section" id="sec09">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">09 / IMMUNITY ACCESS</div>
+            <h2>喧嚣中的认知失焦</h2>
+            <p class="section-subtitle">风险、副作用与经验碎片挤满她的搜索结果，预约信息仅占8.5%</p>
+        </div>
+        <div class="section-body">
+            <p>当一个女孩在社交平台搜索HPV疫苗时，等待她的是<strong>风险提醒、副作用讨论、价格比较、政策转述</strong>与<strong>个人经历</strong>交织在一起的<strong>喧嚣</strong>。</p>
+            <p>1500条微博中，疾病科普与感染风险占34.47%，价格与惠民政策占19.14%，<strong>真正指向预约接种的内容</strong>仅<strong>8.5%</strong>。</p>
+        </div>
+        <img src="algorithm_mist_small.jpg" alt="">
+        <div class="chart-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/></svg>
+            <p>社交平台HPV疫苗信息分布</p>
+        </div>
+    </div>
+</section>
+<section class="section" id="sec10">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">10 / IMMUNITY ACCESS</div>
+            <h2>不同的渠道，不同的回音</h2>
+            <p class="section-subtitle">官方渠道最受信任，学校却成为实际触达与受众期待落差最大的一环</p>
+        </div>
+        <div class="section-body">
+            <p><strong>官方与权威渠道</strong>依然是<strong>最坚实的信任基石</strong>，足以<strong>平息恐慌、稳定情绪</strong>；而<strong>数字平台</strong>上那些零碎交织的声音，却往往在无形中<strong>放大了焦虑与迟疑</strong>。</p>
+        </div>
+        <div class="chart-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/></svg>
+            <p>不同信息渠道信任度调查</p>
+        </div>
+        <div class="section-body">
+            <p>令人叹息的是，<strong>学校组织的实际帮助</strong>却<strong>远远低于</strong>女大学生们的<strong>期待</strong>，留下了最严重的断层。这是当前高校健康教育缺失的部分。</p>
+        </div>
+    </div>
+</section>
+<section class="section-divider" id="part5">
+    <h2>从知晓走向行动：多方力量共同跨越认知壁垒</h2>
+</section>
+<section class="section" id="sec11">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">11 / IMMUNITY ACCESS</div>
+            <h2>故事比数据更容易被听见</h2>
+            <p class="section-subtitle">85.3%的受访者偏好真实经历，数据说明的排斥比例最高</p>
+        </div>
+        <div class="section-body">
+            <p>在所有的科普形式中，带有温度的<strong>"真实经历"</strong>排在首位。<strong>85.3%</strong>的人给出了积极评价，近一半直接打了满分，<strong>"医学科普"</strong>也获得了<strong>75.5%</strong>的认可。</p>
+            <p><strong>"数据说明"</strong>不仅垫底，还遭到了<strong>15%</strong>受访者的明确排斥。这是因为<strong>个人故事天然带着共鸣与信任</strong>。</p>
+        </div>
+        <div class="chart-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/></svg>
+            <p>不同科普形式接受度</p>
+        </div>
+        <div class="section-body">
+            <p style="font-size:1.1rem;font-weight:700;text-align:center;margin:1.5rem 0;color:#333">故事先行 才能让数据被听见</p>
+        </div>
+    </div>
+</section>
+<section class="section" id="sec12">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">12 / IMMUNITY ACCESS</div>
+            <h2>让权威媒体重回中心</h2>
+            <p class="section-subtitle">政策是否知晓影响接种意愿，主流媒体与官方卫生机构必须主动出击</p>
+        </div>
+        <div class="section-body">
+            <p><strong>认知直接决定了行动。</strong>清楚免费与补贴政策的女孩普遍有着极高的接种意愿，而对<strong>政策不知情的人</strong>，绝大多数陷入了<strong>长久的观望与停滞</strong>。</p>
+        </div>
+        <div class="chart-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/></svg>
+            <p>政策知晓度与接种意愿关系</p>
+        </div>
+        <div class="section-body">
+            <p>在<strong>喧杂的网络环境</strong>中，<strong>权威的官方声音不能缺位</strong>。将权威资讯转化为易读的图表与案例，<strong>让高公信力的声音融进日常屏幕</strong>，公共卫生科普才不会被营销流量带偏。</p>
+        </div>
+        <div class="section-body">
+            <p style="font-size:1.1rem;font-weight:700;text-align:center;margin:1.5rem 0;color:#333">权威发声 才能把政策从文件推向信息流</p>
+        </div>
+    </div>
+</section>
+<section class="section" id="sec13">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">13 / IMMUNITY ACCESS</div>
+            <h2>让健康教育扎根校园</h2>
+            <p class="section-subtitle">高校官方渠道应持续发布HPV政策、预约路径与风险答疑</p>
+        </div>
+        <div class="section-body">
+            <p>校园作为与学生最息息相关的生活场所，应该构建起<strong>"接种HPV疫苗是符合健康主流、被同龄群体推崇"</strong>的<strong>包容性同辈文化</strong>。</p>
+            <p><strong>用身边的故事替代枯燥的数据说教，用同辈的共识去瓦解个体的迟疑。</strong></p>
+        </div>
+    </div>
+</section>
+<section class="section conclusion" id="conclusion">
+    <div class="container">
+        <h2>结语</h2>
+        <p>中国正在用惊人的行政效率填补公共卫生的洼地。在政策、资本与数据透明公开的今天，如何填平基层认知的鸿沟、打破地域信息的阻隔，并推动疫苗与早期筛查双轨体系在更广阔的中国腹地落地生根，<strong>将是我们这一代人最终彻底消除宫颈癌必须要跨越的最后一座山峰。</strong></p>
+    </div>
+</section>
+<section class="references" id="references">
+    <h2>数据来源与参考文献</h2>
+    <p>【1】GLOBOCAN 2024</p>
+    <p>【2】WHO Human papillomavirus and related diseases report</p>
+    <p>【3】GBD 2019</p>
+    <p>【4】《2023年度健康体检大数据蓝皮书》</p>
+    <p>【5】China CDC Weekly 2024</p>
+    <p>【6】国家免疫规划疫苗集中采购项目</p>
+    <p>【7】世界卫生组织消除宫颈癌全球战略(2020)</p>
+    <p><strong>新闻制作：</strong>黑龙江大学新闻传播学院 林楠、金思怡、潘欣、曾璇</p>
+    <p><strong>指导老师：</strong>黑龙江大学新闻传播学院 李钟隽、李庚</p>
+</section>
+<footer>
+    <p>数据新闻作品 · 免疫可及：HPV疫苗政策落地过程中的认知壁垒</p>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var navLinks=document.querySelectorAll("nav a");
+  function updateActiveNav(){
+    var scrollY=window.scrollY+100,activeId="";
+    navLinks.forEach(function(link){
+      var target=document.querySelector(link.getAttribute("href"));
+      if(target&&target.offsetTop<=scrollY)activeId=target.getAttribute("id");
+    });
+    navLinks.forEach(function(link){
+      link.classList.remove("active");
+      if("#"+activeId===link.getAttribute("href"))link.classList.add("active");
+    });
+  }
+  window.addEventListener("scroll",updateActiveNav);
+  updateActiveNav();
+});
+</script>
+</body>
+</html>
